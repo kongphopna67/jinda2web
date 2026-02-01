@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>โครงสร้างองค์กร - ศูนย์พัฒนาเด็กเล็กจินดาวิทยาคาร 2</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- React Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/react-icons/4.8.0/fonts/react-icons.woff" rel="preload" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4e73df;
+      --primary-light: #7e9eff;
+      --primary-dark: #2e59d9;
+      --secondary: #1cc88a;
+      --secondary-light: #36e69a;
+      --warning: #f6c23e;
+      --warning-light: #f8d568;
+      --danger: #e74a3b;
+      --danger-light: #f06a5d;
+      --info: #36b9cc;
+      --light: #f8f9fc;
+      --dark: #5a5c69;
+      --purple: #6f42c1;
+      --pink: #e83e8c;
+      --indigo: #6610f2;
+      --teal: #20c9a6;
+      --cyan: #17a2b8;
+    }
+    
+    body {
+      font-family: 'Prompt', sans-serif;
+      background: linear-gradient(135deg, #f8f9fc 0%, #eef2ff 100%);
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .itim-font {
+      font-family: 'Itim', cursive;
+    }
+    
+    /* Header Styles */
+    .main-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--indigo) 100%);
+      border-radius: 0 0 2rem 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 2.5rem 1rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .main-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+      opacity: 0.3;
+    }
+    
+    /* Card Styles */
+    .org-card {
+      background: white;
+      border-radius: 1.25rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      border: none;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      height: 100%;
+      position: relative;
+      border-top: 5px solid var(--primary);
+    }
+    
+    .org-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .org-card.primary {
+      border-top-color: var(--primary);
+    }
+    
+    .org-card.secondary {
+      border-top-color: var(--secondary);
+    }
+    
+    .org-card.warning {
+      border-top-color: var(--warning);
+    }
+    
+    .org-card.danger {
+      border-top-color: var(--danger);
+    }
+    
+    .org-card.info {
+      border-top-color: var(--info);
+    }
+    
+    .org-card.purple {
+      border-top-color: var(--purple);
+    }
+    
+    .org-card.pink {
+      border-top-color: var(--pink);
+    }
+    
+    .org-card.leader {
+      border: 3px solid var(--warning);
+      box-shadow: 0 10px 25px rgba(246, 194, 62, 0.2);
+    }
+    
+    /* Photo Container */
+    .photo-container {
+      width: 140px;
+      height: 160px;
+      margin: 0 auto 1.5rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 5px solid white;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      position: relative;
+      background: linear-gradient(135deg, #f8f9fc 0%, #e3e6f0 100%);
+    }
+    
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+      color: white;
+      font-size: 3rem;
+    }
+    
+    .student-photo {
+      width: 100px;
+      height: 120px;
+      margin: 0 auto 1rem;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 3px solid white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .student-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Section Titles */
+    .section-title {
+      position: relative;
+      padding-bottom: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    
+    .section-title h2 {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--indigo) 100%);
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 5px 15px rgba(78, 115, 223, 0.3);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      border-radius: 2px;
+    }
+    
+    /* Badges */
+    .role-badge {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    
+    .badge-admin {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+    }
+    
+    .badge-teacher {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--teal) 100%);
+      color: white;
+    }
+    
+    .badge-staff {
+      background: linear-gradient(135deg, var(--warning) 0%, #e6b400 100%);
+      color: white;
+    }
+    
+    .badge-student {
+      background: linear-gradient(135deg, var(--info) 0%, var(--cyan) 100%);
+      color: white;
+    }
+    
+    .badge-committee {
+      background: linear-gradient(135deg, var(--purple) 0%, #5a32a3 100%);
+      color: white;
+    }
+    
+    .badge-kindergarten {
+      background-color: #fef3c7;
+      color: #92400e;
+      font-weight: 600;
+    }
+    
+    .badge-pre-kindergarten {
+      background-color: #dbeafe;
+      color: #1e40af;
+      font-weight: 600;
+    }
+    
+    /* Navigation */
+    .mobile-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: 0.75rem;
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .mobile-nav {
+        display: block;
+      }
+      
+      .main-header {
+        border-radius: 0 0 1.5rem 1.5rem;
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .photo-container {
+        width: 120px;
+        height: 140px;
+      }
+    }
+    
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      color: var(--dark);
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-btn.active, .nav-btn:hover {
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+      color: white;
+    }
+    
+    .nav-btn i {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .nav-btn span {
+      font-size: 0.75rem;
+    }
+    
+    /* Footer */
+    .main-footer {
+      background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+      color: white;
+      border-radius: 2rem 2rem 0 0;
+      padding: 2.5rem 1rem;
+      margin-top: 4rem;
+    }
+    
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate-fade-in-up {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    /* Student Cards */
+    .student-card {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      height: 100%;
+      text-align: center;
+      border: 2px solid transparent;
+    }
+    
+    .student-card:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 576px) {
+      .section-title h2 {
+        font-size: 1.25rem;
+        padding: 0.6rem 1.5rem;
+      }
+      
+      .org-card {
+        margin-bottom: 1.5rem;
+      }
+      
+      .student-card {
+        padding: 1rem;
+      }
+      
+      .student-photo {
+        width: 80px;
+        height: 100px;
+      }
+    }
+    
+    /* Icon Colors */
+    .icon-blue {
+      color: var(--primary);
+    }
+    
+    .icon-green {
+      color: var(--secondary);
+    }
+    
+    .icon-yellow {
+      color: var(--warning);
+    }
+    
+    .icon-red {
+      color: var(--danger);
+    }
+    
+    .icon-purple {
+      color: var(--purple);
+    }
+    
+    .icon-pink {
+      color: var(--pink);
+    }
+  </style>
+</head>
+<body>
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-3">
+          <a href="#management" class="nav-btn active">
+            <i class="fas fa-sitemap"></i>
+            <span>ผู้บริหาร</span>
+          </a>
+        </div>
+        <div class="col-3">
+          <a href="#teachers" class="nav-btn">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span>บุคลากร</span>
+          </a>
+        </div>
+        <div class="col-3">
+          <a href="#students" class="nav-btn">
+            <i class="fas fa-child"></i>
+            <span>นักเรียน</span>
+          </a>
+        </div>
+        <div class="col-3">
+          <a href="#committee" class="nav-btn">
+            <i class="fas fa-users-cog"></i>
+            <span>กรรมการ</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Header -->
+  <header class="main-header text-white text-center">
+    <div class="container position-relative">
+      <h1 class="itim-font display-4 fw-bold mb-3">จินดาวิทยาคาร 2</h1>
+      <h2 class="h3 mb-4">ศูนย์พัฒนาเด็กเล็ก เทศบาลตำบลสร้างปี่</h2>
+      <div class="d-flex justify-content-center align-items-center">
+        <span class="badge bg-light text-primary fs-6 px-4 py-2 me-3">
+          <i class="fas fa-baby me-1"></i> เตรียมอนุบาล
+        </span>
+        <span class="badge bg-light text-primary fs-6 px-4 py-2">
+          <i class="fas fa-graduation-cap me-1"></i> อนุบาล 1
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container pb-5">
+    <!-- Management Section -->
+    <section id="management" class="mb-5 animate-fade-in-up">
+      <div class="section-title text-center">
+        <h2><i class="fas fa-sitemap me-2"></i>โครงสร้างกองการศึกษา ศาสนาและวัฒนธรรม อบต.สร้างปี่</h2>
+      </div>
+      
+      <!-- Executive -->
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-6 col-lg-5">
+          <div class="org-card leader p-4 text-center">
+            <div class="position-absolute top-0 start-50 translate-middle">
+              <span class="badge bg-warning text-dark px-3 py-2 fs-6">
+                <i class="fas fa-crown me-1"></i> ผู้บริหาร
+              </span>
+            </div>
+            <div class="photo-container mt-4">
+              <img src="นายกฤษฏา สุ่มมาตย์.png" alt="นายกฤษฏา สุ่มมาตย์" class="img-fluid">
+            </div>
+            <h3 class="h5 fw-bold mt-3">นายกฤษฏา สุ่มมาตย์</h3>
+            <p class="text-primary fw-bold mb-2">รองปลัดองค์การบริหารส่วนตำบลสร้างปี่</p>
+            <p class="text-muted small">รักษาราชการแทนผอ.กองการศึกษา ศาสนาและวัฒนธรรม</p>
+            <span class="role-badge badge-admin">ผู้บริหารสูงสุด</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Education Department Staff -->
+      <div class="row justify-content-center mb-5">
+        <div class="col-md-4 mb-4">
+          <div class="org-card primary p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="นางสาวจิดาภา ยิ้มแย้ม.png" alt="นางสาวจิดาภา ยิ้มแย้ม" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นางสาวจิดาภา ยิ้มแย้ม</h4>
+            <p class="text-primary fw-bold mb-2">นักวิชาการศึกษา</p>
+            <span class="role-badge badge-staff">เจ้าหน้าที่กองการศึกษา</span>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="org-card primary p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="นางสาวมยุรี เพียงบุญ.png" alt="นางสาวมยุรี เพียงบุญ" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นางสาวมยุรี เพียงบุญ</h4>
+            <p class="text-primary fw-bold mb-2">เจ้าพนักงานธุรการ</p>
+            <span class="role-badge badge-staff">เจ้าหน้าที่กองการศึกษา</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teachers Section -->
+    <section id="teachers" class="mb-5 animate-fade-in-up">
+      <div class="section-title text-center">
+        <h2><i class="fas fa-chalkboard-teacher me-2"></i>โครงสร้างศูนย์พัฒนาเด็กเล็กโรงเรียนจินดาวิทยาคาร 2</h2>
+      </div>
+      
+      <div class="row mb-4">
+        <!-- School Director -->
+        <div class="col-md-4 mb-4">
+          <div class="org-card warning p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="ดร.จุฬาพร ลีลา.png" alt="ดร.จุฬาพร ลีลา" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">ดร.จุฬาพร ลีลา</h4>
+            <p class="text-warning fw-bold mb-2">ครูชำนาญการพิเศษ</p>
+            <p class="text-muted small mb-2">หัวหน้าสถานศึกษา ศพด. ร.ร จินดาวิทยาคาร 2</p>
+            <span class="role-badge badge-admin">หัวหน้าสถานศึกษา</span>
+          </div>
+        </div>
+        
+        <!-- Teacher Assistant -->
+        <div class="col-md-4 mb-4">
+          <div class="org-card secondary p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="นางสาวผกาวดี สายชมภู.png" alt="นางสาวผกาวดี สายชมภู" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นางสาวผกาวดี สายชมภู</h4>
+            <p class="text-success fw-bold mb-2">ผู้ช่วยครูผู้ช่วย</p>
+            <p class="text-muted small mb-2">ศพด. ร.ร จินดาวิทยาคาร 2</p>
+            <span class="role-badge badge-teacher">ครูผู้ช่วย</span>
+          </div>
+        </div>
+        
+        <!-- Child Care Assistant -->
+        <div class="col-md-4 mb-4">
+          <div class="org-card info p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="นางสาวขวัญนิภา เสียงอ่อน.png" alt="นางสาวขวัญนิภา เสียงอ่อน" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นางสาวขวัญนิภา เสียงอ่อน</h4>
+            <p class="text-info fw-bold mb-2">ผู้ช่วยผู้ดูแลเด็ก</p>
+            <p class="text-muted small mb-2">ศพด. ร.ร จินดาวิทยาคาร 2</p>
+            <span class="role-badge badge-teacher">ผู้ดูแลเด็ก</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Cook -->
+      <div class="row justify-content-center">
+        <div class="col-md-5">
+          <div class="org-card pink p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="นางจำปา พรหมศร.png" alt="นางจำปา พรหมศร" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นางจำปา พรหมศร</h4>
+            <p class="text-pink fw-bold mb-2">ผู้ประกอบอาหาร</p>
+            <p class="text-muted small mb-2">ดูแลโภชนาการสำหรับเด็ก</p>
+            <span class="role-badge" style="background: linear-gradient(135deg, var(--pink) 0%, #d63084 100%); color: white;">ผู้ประกอบอาหาร</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Students Section -->
+    <section id="students" class="mb-5 animate-fade-in-up">
+      <div class="section-title text-center">
+        <h2><i class="fas fa-child me-2"></i>ข้อมูลนักเรียน (อนุบาล 1 และ เตรียมอนุบาล)</h2>
+      </div>
+      
+      <!-- Kindergarten 1 -->
+      <div class="mb-5">
+        <h3 class="h4 fw-bold text-center mb-4 text-primary">
+          <i class="fas fa-graduation-cap me-2"></i>นักเรียนชั้นอนุบาล 1
+        </h3>
+        
+        <div class="row g-3">
+          <!-- Student list for Kindergarten 1 -->
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="ด.ช.กรวิชญ์ หาวันนา.png" alt="ด.ช.กรวิชญ์ หาวันนา" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ช.กรวิชญ์ หาวันนา</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="ด.ช.กิตติพล คำนึง.png" alt="ด.ช.กิตติพล คำนึง" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ช.กิตติพล คำนึง</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="เด็กชายอภินันต์ รัตนะวัน.png" alt="ด.ช.อภินันต์ รัตนะวัน" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ช.อภินันต์ รัตนะวัน</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="ด.ช.อธิบดินทร์ จิบทอง.png" alt="ด.ช.อธิบดินทร์ จิบทอง" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ช.อธิบดินทร์ จิบทอง</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="ด.ช.วรโชติ รัตนวัน.png" alt="ด.ช.วรโชติ รัตนวัน" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ช.วรโชติ รัตนวัน</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="จันธิรา.png" alt="ด.ญ.จันธิรา หงส์ทอง" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.จันธิรา หงส์ทอง</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="ชาคริยา.png" alt="ด.ญ.ชาคริยา ทิพศร" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.ชาคริยา ทิพศร</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="สิริญากร.png" alt="ด.ญ.สิริญากร รัตนวัน" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.สิริญากร รัตนวัน</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="รภัทร.png" alt="ด.ญ.รภัทร สุขสำราญ" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.รภัทร สุขสำราญ</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="ธัญชนก.png" alt="ด.ญ.ธัญชนก เกิดสันเทียะ" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.ธัญชนก เกิดสันเทียะ</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="วรรณวิสา.png" alt="ด.ญ.วรรณวิสา รัตนวัน" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.วรรณวิสา รัตนวัน</h5>
+              <span class="badge badge-kindergarten">อนุบาล 1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Pre-Kindergarten -->
+      <div>
+        <h3 class="h4 fw-bold text-center mb-4 text-info">
+          <i class="fas fa-baby me-2"></i>นักเรียนชั้นเตรียมอนุบาล
+        </h3>
+        
+        <div class="row g-3">
+          <!-- Student list for Pre-Kindergarten -->
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="พีรพัฒน์.png" alt="ด.ช.พีรพัฒน์ สายชมภู" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ช.พีรพัฒน์ สายชมภู</h5>
+              <span class="badge badge-pre-kindergarten">เตรียมอนุบาล</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="ปะณณ์ธิััส.png" alt="ด.ช.ปัณณ์ธิภัส จิบทอง" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ช.ปัณณ์ธิภัส จิบทอง</h5>
+              <span class="badge badge-pre-kindergarten">เตรียมอนุบาล</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="ธีร์ธวัช.png" alt="ด.ช.ธีร์ธวัช จันเหลือง" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ช.ธีร์ธวัช จันเหลือง</h5>
+              <span class="badge badge-pre-kindergarten">เตรียมอนุบาล</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="กฤตชาญา.png" alt="ด.ญ.กฤตชญา ทิพศร" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.กฤตชญา ทิพศร</h5>
+              <span class="badge badge-pre-kindergarten">เตรียมอนุบาล</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="ชญาดา.png" alt="ด.ญ.ชญาดา พัดไธสง" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.ชญาดา พัดไธสง</h5>
+              <span class="badge badge-pre-kindergarten">เตรียมอนุบาล</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="นิพาดา.png" alt="ด.ญ.นิพาดา ลัทธิ" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.นิพาดา ลัทธิ</h5>
+              <span class="badge badge-pre-kindergarten">เตรียมอนุบาล</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="มนนก.png" alt="ด.ญ.มนชนก ป้อมมณี" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.มนชนก ป้อมมณี</h5>
+              <span class="badge badge-pre-kindergarten">เตรียมอนุบาล</span>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-4 col-lg-3">
+            <div class="student-card">
+              <div class="student-photo">
+                <img src="กัญญาภัค.png" alt="ด.ญ.กัญญาภัค สุขเกษม" class="img-fluid">
+              </div>
+              <h5 class="h6 fw-bold mb-1">ด.ญ.กัญญาภัค สุขเกษม</h5>
+              <span class="badge badge-pre-kindergarten">เตรียมอนุบาล</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Committee Section -->
+    <section id="committee" class="mb-5 animate-fade-in-up">
+      <div class="section-title text-center">
+        <h2><i class="fas fa-users-cog me-2"></i>คณะกรรมการสถานศึกษา ศพด.จินดาวิทยาคาร 2</h2>
+      </div>
+      
+      <!-- Committee Chair -->
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-6 col-lg-5">
+          <div class="org-card purple p-4 text-center">
+            <div class="position-absolute top-0 start-50 translate-middle">
+              <span class="badge bg-purple text-white px-3 py-2 fs-6">
+                <i class="fas fa-chair me-1"></i> ประธานกรรมการ
+              </span>
+            </div>
+            <div class="photo-container mt-4">
+              <img src="พวงทิพย์.png" alt="นางพวงทิพย์ รัตนวัน" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold mt-3">นางพวงทิพย์ รัตนวัน</h4>
+            <p class="text-purple fw-bold mb-2">ประธานกรรมการ</p>
+            <span class="role-badge badge-committee">ประธานกรรมการ</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Committee Members -->
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="org-card p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="สุลัดดา.png" alt="นางสาวสุลัดดา ปัญจะแก้ว" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นางสาวสุลัดดา ปัญจะแก้ว</h4>
+            <p class="text-muted mb-2">รองประธาน</p>
+            <span class="role-badge badge-committee">กรรมการ</span>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="org-card p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="ครูสิสุทธิ์.png" alt="พระครูวิสุทธิ์ วรคุณ" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">พระครูวิสุทธิ์ วรคุณ</h4>
+            <p class="text-muted mb-2">กรรมการ</p>
+            <span class="role-badge badge-committee">กรรมการ</span>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="org-card p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="นางยุพา เกิดสันเทียะ.png" alt="นางยุพา เกิดสันเทียะ" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นางยุพา เกิดสันเทียะ</h4>
+            <p class="text-muted mb-2">กรรมการ</p>
+            <span class="role-badge badge-committee">กรรมการ</span>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="org-card p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="นางวงษ์เดือน หงส์ทอง.png" alt="นางวงษ์เดือน หงส์ทอง" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นางวงษ์เดือน หงส์ทอง</h4>
+            <p class="text-muted mb-2">กรรมการ</p>
+            <span class="role-badge badge-committee">กรรมการ</span>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="org-card p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="สมฤทัย.png" alt="นางสาวสมฤทัย สายชมภู" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นางสาวสมฤทัย สายชมภู</h4>
+            <p class="text-muted mb-2">กรรมการ</p>
+            <span class="role-badge badge-committee">กรรมการ</span>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="org-card p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="ศญามันตร์.png" alt="นางสาวศญามนตร์ ก้อนทอง" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นางสาวศญามนตร์ ก้อนทอง</h4>
+            <p class="text-muted mb-2">กรรมการ</p>
+            <span class="role-badge badge-committee">กรรมการ</span>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4 offset-md-2">
+          <div class="org-card p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="วัชรินทร์.png" alt="นายวัชรินทร์ รัตนะวัน" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">นายวัชรินทร์ รัตนะวัน</h4>
+            <p class="text-muted mb-2">กรรมการ</p>
+            <span class="role-badge badge-committee">กรรมการ</span>
+          </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+          <div class="org-card purple p-4 text-center h-100">
+            <div class="photo-container">
+              <img src="ดร.จุฬาพร ลีลา.png" alt="ดร.จุฬาพร ลีลา" class="img-fluid">
+            </div>
+            <h4 class="h5 fw-bold">ดร.จุฬาพร ลีลา</h4>
+            <p class="text-purple fw-bold mb-2">กรรมการและเลขานุการ</p>
+            <span class="role-badge badge-committee">เลขานุการ</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container text-center">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h3 class="itim-font h4 mb-3">ศูนย์พัฒนาเด็กเล็กโรงเรียนจินดาวิทยาคาร 2</h3>
+          <p class="mb-3">เทศบาลตำบลสร้างปี่ | เตรียมอนุบาล ถึง อนุบาล 1</p>
+          <p class="mb-4">
+            <i class="fas fa-phone-alt me-2"></i>โทรศัพท์: 0XX-XXX-XXXX
+            <span class="mx-3">|</span>
+            <i class="fas fa-envelope me-2"></i>อีเมล: info@jinda2.ac.th
+          </p>
+          <div class="border-top border-secondary pt-3 mt-3">
+            <p class="mb-0 text-light">© 2023 ศูนย์พัฒนาเด็กเล็กโรงเรียนจินดาวิทยาคาร 2. สงวนลิขสิทธิ์.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Animation on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add animation to cards on load
+      const cards = document.querySelectorAll('.org-card, .student-card');
+      cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+          card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        }, 100 + index * 50);
+      });
+      
+      // Mobile navigation functionality
+      const navButtons = document.querySelectorAll('.nav-btn');
+      const sections = document.querySelectorAll('section');
+      
+      // Function to update active nav button
+      const updateActiveNav = () => {
+        const scrollPosition = window.scrollY + 100;
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionBottom = sectionTop + section.offsetHeight;
+          const sectionId = section.getAttribute('id');
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            navButtons.forEach(btn => {
+              btn.classList.remove('active');
+              if (btn.getAttribute('href') === `#${sectionId}`) {
+                btn.classList.add('active');
+              }
+            });
+          }
+        });
+      };
+      
+      // Smooth scroll for nav buttons
+      navButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetSection = document.getElementById(targetId);
+          
+          if (targetSection) {
+            // Update active button
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Scroll to section
+            window.scrollTo({
+              top: targetSection.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+      
+      // Update active nav on scroll
+      window.addEventListener('scroll', updateActiveNav);
+      
+      // Initialize
+      updateActiveNav();
+    });
+  </script>
+</body>
+</html>
